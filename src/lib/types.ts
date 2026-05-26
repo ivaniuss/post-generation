@@ -19,7 +19,7 @@ export interface FontStyle {
   italic: boolean;
 }
 
-export type GridDirection = 'horizontal' | 'vertical';
+export type GridDirection = 'auto' | 'horizontal' | 'vertical';
 
 export interface EditorState {
   format: FormatId;

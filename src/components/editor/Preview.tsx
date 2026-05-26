@@ -44,8 +44,15 @@ export default function Preview({ state }: PreviewProps) {
         gridTemplateRows: `repeat(${n}, 1fr)`,
       };
     }
-    if (n <= 2) return { gridTemplateColumns: `repeat(${n}, 1fr)`, gridTemplateRows: '1fr' };
-    if (n <= 4) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr' };
+    if (state.gridDirection === 'horizontal') {
+      return {
+        gridTemplateColumns: `repeat(${n}, 1fr)`,
+        gridTemplateRows: '1fr',
+      };
+    }
+    if (n === 2) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr' };
+    if (n === 3) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gridTemplateAreas: '"a b" "a c"' };
+    if (n === 4) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr' };
     if (n <= 6) return { gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr 1fr' };
     return { gridTemplateColumns: '1fr 1fr 1fr 1fr', gridTemplateRows: 'auto' };
   })();
@@ -77,13 +84,21 @@ export default function Preview({ state }: PreviewProps) {
               style={hasImages ? gridStyle : { background: '#0a0a0a' }}
             >
               {hasImages ? (
-                state.images.map((src, i) => (
-                  <div
-                    key={i}
-                    className="bg-cover bg-center"
-                    style={{ backgroundImage: `url(${src})` }}
-                  />
-                ))
+                state.images.map((src, i) => {
+                  let gridArea: string | undefined;
+                  if (state.gridDirection === 'auto' && state.images.length === 3) {
+                    if (i === 0) gridArea = 'a';
+                    else if (i === 1) gridArea = 'b';
+                    else gridArea = 'c';
+                  }
+                  return (
+                    <div
+                      key={i}
+                      className="bg-cover bg-center"
+                      style={{ backgroundImage: `url(${src})`, gridArea }}
+                    />
+                  );
+                })
               ) : null}
             </div>
             <div

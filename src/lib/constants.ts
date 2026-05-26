@@ -74,5 +74,5 @@ export const defaultState = {
   horizontalPos: 50,
   letterSpacing: 0,
   images: [] as string[],
-  gridDirection: 'horizontal' as const,
+  gridDirection: 'auto' as const,
 };
