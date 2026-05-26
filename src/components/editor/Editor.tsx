@@ -18,6 +18,7 @@ export default function Editor() {
     setVerticalPos,
     setHorizontalPos,
     setLetterSpacing,
+    setGridDirection,
     addImages,
     removeImage,
     reset,
@@ -59,6 +60,7 @@ export default function Editor() {
           onVerticalPosChange={setVerticalPos}
           onHorizontalPosChange={setHorizontalPos}
           onLetterSpacingChange={setLetterSpacing}
+          onGridDirectionChange={setGridDirection}
           onImagesAdd={addImages}
           onImageRemove={removeImage}
         />

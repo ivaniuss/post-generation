@@ -19,6 +19,8 @@ export interface FontStyle {
   italic: boolean;
 }
 
+export type GridDirection = 'horizontal' | 'vertical';
+
 export interface EditorState {
   format: FormatId;
   style: StyleId;
@@ -32,4 +34,5 @@ export interface EditorState {
   horizontalPos: number;
   letterSpacing: number;
   images: string[];
+  gridDirection: GridDirection;
 }

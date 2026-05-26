@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import type { EditorState, FormatId, StyleId } from '@/lib/types';
+import type { EditorState, FormatId, StyleId, GridDirection } from '@/lib/types';
 import { defaultState } from '@/lib/constants';
 
 export function useEditorState(initial = defaultState) {
@@ -25,6 +25,8 @@ export function useEditorState(initial = defaultState) {
   const setVerticalPos = useCallback((v: number) => update('verticalPos', v), [update]);
   const setHorizontalPos = useCallback((v: number) => update('horizontalPos', v), [update]);
   const setLetterSpacing = useCallback((v: number) => update('letterSpacing', v), [update]);
+
+  const setGridDirection = useCallback((dir: GridDirection) => update('gridDirection', dir), [update]);
 
   const addImages = useCallback((newImages: string[]) => {
     setState(prev => ({ ...prev, images: [...prev.images, ...newImages] }));
@@ -54,6 +56,7 @@ export function useEditorState(initial = defaultState) {
     setVerticalPos,
     setHorizontalPos,
     setLetterSpacing,
+    setGridDirection,
     addImages,
     removeImage,
     reset,

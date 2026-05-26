@@ -38,9 +38,14 @@ export default function Preview({ state }: PreviewProps) {
     if (!hasImages) return {};
     const n = state.images.length;
     if (n === 1) return { gridTemplateColumns: '1fr', gridTemplateRows: '1fr' };
-    if (n === 2) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr' };
-    if (n === 3) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gridTemplateAreas: '"a b" "a c"' };
-    if (n === 4) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr' };
+    if (state.gridDirection === 'vertical') {
+      return {
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: `repeat(${n}, 1fr)`,
+      };
+    }
+    if (n <= 2) return { gridTemplateColumns: `repeat(${n}, 1fr)`, gridTemplateRows: '1fr' };
+    if (n <= 4) return { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr' };
     if (n <= 6) return { gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr 1fr' };
     return { gridTemplateColumns: '1fr 1fr 1fr 1fr', gridTemplateRows: 'auto' };
   })();
@@ -72,21 +77,13 @@ export default function Preview({ state }: PreviewProps) {
               style={hasImages ? gridStyle : { background: '#0a0a0a' }}
             >
               {hasImages ? (
-                state.images.map((src, i) => {
-                  let gridArea: string | undefined;
-                  if (state.images.length === 3) {
-                    if (i === 0) gridArea = 'a';
-                    else if (i === 1) gridArea = 'b';
-                    else gridArea = 'c';
-                  }
-                  return (
-                    <div
-                      key={i}
-                      className="bg-cover bg-center"
-                      style={{ backgroundImage: `url(${src})`, gridArea }}
-                    />
-                  );
-                })
+                state.images.map((src, i) => (
+                  <div
+                    key={i}
+                    className="bg-cover bg-center"
+                    style={{ backgroundImage: `url(${src})` }}
+                  />
+                ))
               ) : null}
             </div>
             <div

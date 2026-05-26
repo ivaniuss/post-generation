@@ -1,6 +1,6 @@
 'use client';
 
-import type { EditorState, FormatId, StyleId } from '@/lib/types';
+import type { EditorState, FormatId, StyleId, GridDirection } from '@/lib/types';
 import FormatPanel from './panels/FormatPanel';
 import TextPanel from './panels/TextPanel';
 import StylePanel from './panels/StylePanel';
@@ -22,6 +22,7 @@ interface SidebarProps {
   onVerticalPosChange: (v: number) => void;
   onHorizontalPosChange: (v: number) => void;
   onLetterSpacingChange: (v: number) => void;
+  onGridDirectionChange: (dir: GridDirection) => void;
   onImagesAdd: (imgs: string[]) => void;
   onImageRemove: (index: number) => void;
 }
@@ -54,6 +55,8 @@ export default function Sidebar(props: SidebarProps) {
       <ColorPanel current={props.state.accentColor} onChange={props.onAccentColorChange} />
       <ImagePanel
         images={props.state.images}
+        gridDirection={props.state.gridDirection}
+        onDirectionChange={props.onGridDirectionChange}
         onAdd={props.onImagesAdd}
         onRemove={props.onImageRemove}
       />
