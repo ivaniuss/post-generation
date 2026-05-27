@@ -76,7 +76,7 @@ export default function Preview({ state }: PreviewProps) {
           <div
             ref={phoneRef}
             id="phoneEl"
-            className="relative overflow-hidden rounded-[20px] border-[3px] border-[#222] bg-black"
+            className="relative overflow-hidden rounded-none border-[3px] border-[#222] bg-black"
             style={{ width: fmt.w, height: fmt.h }}
           >
             <div
